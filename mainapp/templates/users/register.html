@@ -1,0 +1,34 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+    <h1>{{title}}</h1>
+
+    <!-- Errores -->
+    {{register_form.errors}}
+
+    <!-- Formulario de Registro -->
+    <form method="POST" action="">
+        {% csrf_token %}
+
+        <!-- Formulario por defecto -->
+        {% comment %}
+            {{register_form.as_p}}
+        {% endcomment %}
+
+        <!-- Formulario personalizado -->
+        {% comment %}
+            {{register_form.username.label}}
+            {{register_form.username}}
+        {% endcomment %}
+
+        <!-- Formulario personalizado -->
+        {% for field in register_form %}
+            <label> {{field.label}} </label>
+            {{field}}
+        {% endfor %}
+
+        <input type="submit" value="Registrarse">
+    </form>
+{% endblock %}

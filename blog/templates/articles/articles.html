@@ -1,0 +1,53 @@
+{% for article in articles %}
+    <article class="article-item">
+
+        <!-- IMAGEN DEL ARTICULO -->
+        {% comment 'Verificamos imagen' %}
+            {{ article.image.url }}
+            {{ article.image }}
+        {% endcomment %}
+
+        {% if article.image != 'null' and article.image.url|length >= 1 %}
+            <div class="image">
+                <img src="{{article.image.url}}" />
+            </div>
+        {% endif %}
+
+        <!-- INFORMACION DEL ARTICULO -->
+        <div class="data">
+            <h2>
+                <a href="{% url 'article' article.id %}">
+                    {{article.title}}
+                </a> <!-- {{article.id}}. {{article.title}} -->
+            </h2>
+            <p>
+                {% for category in article.categories.all %}
+                    <a href="{% url 'category' category.id %}">{{category.name}}</a> <!-- {{category}} -->
+
+                    {% if forloop.counter < article.categories.all|length %}
+                        {{'-'}}
+                    {% endif %}
+                {% endfor %}
+            </p>
+            <span class="date">
+                {{article.user.first_name}} {{article.user.last_name}}
+                |
+                {{article.created_at}}
+            </span>
+
+            {% comment %}
+                {% if article.public %}
+                    <strong>Publicado</strong>
+                {% else %}
+                    <strong>Privado</strong>
+                {% endif %}
+            {% endcomment %}
+
+            <p>
+                {{article.content|safe}}
+            </p>
+        </div>
+
+        <div class="clearfix"></div>
+    </article>
+{% endfor %}

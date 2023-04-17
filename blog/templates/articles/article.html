@@ -1,0 +1,21 @@
+{% extends 'layouts/layout.html' %}
+
+{% block title %} {{article.title}} {% endblock %}
+
+{% block content %}
+    <!-- IMAGEN DEL ARTICULO -->
+    {% if article.image != 'null' and article.image.url|length >= 1 %}
+        <div class="image-detail">
+            <img src="{{article.image.url}}" />
+        </div>
+    {% endif %}
+
+    <!-- INFORMACION DEL ARTICULO -->
+    <h1 class="title">{{article.title}}</h1>
+
+    <span class="date">{{article.created_at}}</span>
+
+    <p class="content">
+        {{article.content|safe}} <!-- safe interpreta contenido como HTML -->
+    </p>
+{% endblock %}
